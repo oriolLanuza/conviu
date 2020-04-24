@@ -1,0 +1,7 @@
+gulp_1/
+.vscode
+static/
+gulp/node_modules/
+venv/
+db.sqlite3
+__pycache__

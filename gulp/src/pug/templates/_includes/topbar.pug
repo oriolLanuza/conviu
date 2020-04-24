@@ -1,0 +1,25 @@
+.container.sticky-top.style-standard
+  .row.navbar-row
+    .brand.clickable(onclick="window.location.href = '{% url 'index' %}';")
+      p.brand #[strong C]on#[strong V]iu
+    |{% if user.is_authenticated %}
+    .login-profile.clickable(onclick="window.location.href = '{% url 'profile' profile=user %}';")
+      |{% if profile_pic %}
+      .icono-foto-login(style="background-image: url({% static profile_pic %})")
+      |{% else %}
+      .icono-foto-login(style="background-image: url({{ user.profile.profile_pic.name }})")
+      |{% endif %}
+      .text-login.user
+        span {{ user }}
+    .login-logout.clickable(onclick="window.location.href = '{% url 'logout' %}';")
+      .icono-login
+        i.fa.fa-sign-out(aria-hidden='true')
+      .text-login
+        span Logout
+    |{% else %}
+    .login-profile.clickable(onclick="window.location.href = '{% url 'login' %}';")
+      .icono-login
+        i.fa.fa-user(aria-hidden='true')
+      .text-login
+        span Login
+    |{% endif %}

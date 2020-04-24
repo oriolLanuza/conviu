@@ -1,0 +1,14 @@
+mixin meetup
+  .meetup-card(style="background-image: url({{ meetup.meetup_pic }})")
+    .meetup-image
+    .meetup-info-basic
+        .meetup-title
+            |{% for category in meetup.category %}
+            p {{category.name}}
+            |{% endfor %}
+        .meetup-user
+            p {{meetup.username.username}}
+
+mixin logged-profile
+  .row.justify-content-center
+    input.addevent-button(type="button" value="Crear nou event")

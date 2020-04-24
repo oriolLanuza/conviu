@@ -1,0 +1,17 @@
+extends ../base_template.pug
+include ../_includes/mixins.pug
+
+block styles
+    link(rel="stylesheet" href="{% static 'css/meetup.css' %}")
+    link(rel="stylesheet" href="{% static 'css/profile.css' %}")
+
+block content
+    .container
+        |{% if user.is_authenticated and user.username == profile %}
+        +logged-profile
+        p can add event {{user}}{{ profile_pic }}
+        +meetup
+        |{% else %}
+        p cant add anything bro {{user}}{{profile}}
+        //- +unlogged-profile
+        |{% endif %}

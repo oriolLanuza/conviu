@@ -1,0 +1,44 @@
+extends ../base_template.pug
+
+block styles
+    link(rel="stylesheet" href="{% static 'css/login.css' %}")
+
+block content
+    .container
+        .login-row
+            .flex-centered-login
+                .login-title
+                    p #[strong L]og#[strong I]n
+            .flex-centered-login
+                .login-form
+                    |{% if form.errors %}
+                    p Your username and password didn't match. Please try again!
+                    |{% endif %}
+                    |{% if next %}
+                    |{% if user.is_authenticated %}
+                    p Your account doesn't have access to this page. To proceed, please login with an account that has access.
+                    |{% else %}
+                    p Please login to see this page.
+                    |{% endif %} 
+                    |{% endif %}
+
+                    form(method="post" action="{% url 'login' %}")
+                        |{% csrf_token %}
+                        .flex-centered-login
+                            p.login-label Usuari
+                        .flex-centered-login
+                            |{{ form.username|add_class:"login-input" }}
+                        .flex-centered-login
+                            p.login-label Contrasenya
+                        .flex-centered-login
+                            |{{ form.password|add_class:"login-input" }}
+                        br
+                        .flex-centered-login
+                            input.login-button(type="submit" value="Login")
+                            input(type="hidden" name="next" value="{{ next }}")
+                        br
+                        br
+                    |{# Assumes you setup the password_reset view in your URLconf #}
+                    p.flex-centered-login
+                        a.login-link(href="{% url 'password_reset' %}")
+                            |Lost password?
